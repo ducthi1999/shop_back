@@ -3,7 +3,6 @@ const AccountModel = require('../../models/account')
 
 const register = (req, res, next) => {
   const data = req.body
-  console.log('manh')
   AccountModel.findOne({
     username: data.username
   })

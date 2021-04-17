@@ -6,7 +6,7 @@ cloudinary.config({
 })
 
 const removeImage = (publicId, option, callback) => {
-  return cloudinary.v2.api.delete_resources(publicId, callback)
+  return cloudinary.api.delete_resources(publicId, callback)
 }
 
 module.exports = removeImage
