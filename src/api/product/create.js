@@ -3,6 +3,7 @@ const uploadImage = require('../../utils/uploadImage')
 const toSlug = require('../../utils/toSlug')
 const create = (req, res, next) => {
   const data = req.body
+  const { userId } = req
   const { image } = data
 
   ProductModel.findOne({
@@ -22,6 +23,7 @@ const create = (req, res, next) => {
           if (result && result.url) {
             const newData = {
               ...data,
+              seller: userId,
               image: {
                 url: result.url,
                 publicId: result.public_ids || result.public_id
