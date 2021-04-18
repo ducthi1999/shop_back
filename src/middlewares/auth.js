@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = (req, res, next) => {
   let token = req.headers.authorization
+
   if (token && token !== 'null') {
     let result = jwt.verify(token, 'mb1o4er')
     if (result) {

@@ -5,6 +5,13 @@ const removeImage = require('../../utils/removeImage')
 const update = (req, res, next) => {
   const slug = req.params.slug
   const data = req.body
+  const { userId } = req
+
+  if ((data.seller && data.seller._id) !== userId) {
+    req.err = 'Bạn không có quyền chinh sửa!'
+    next('last')
+  }
+  
   const { image, newImage } = data
 
   if (newImage) {
@@ -13,7 +20,7 @@ const update = (req, res, next) => {
         console.log('Lỗi xóa ảnh!')
       }
       if (result) {
-        console.log(result)
+        console.log('Xóa ảnh thành công')
       }
     })
 

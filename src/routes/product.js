@@ -7,8 +7,8 @@ const getAll = require('../api/product/getAll')
 const getOne = require('../api/product/getOne')
 const update = require('../api/product/update')
 
-router.post('/', create)
-router.put('/:slug', update)
+router.post('/', auth, create)
+router.put('/:slug', auth, update)
 router.get('/:slug', getOne)
 router.get('/', getAll)
 
