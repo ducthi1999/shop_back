@@ -8,12 +8,13 @@ const Account = new Schema({
   firstName: { type: String, maxLength: 30 },
   lastName: { type: String, maxLength: 30 },
   role: { type: String, default: 'user' },
-  image: { type: String, default: 'user_default.jpg'},
-  address: { type: String, default: ''},
-  phone: { type: String, default: ''},
-  notif: { type: Array, default: []},
+  image: { type: String, default: 'user_default.jpg' },
+  address: { type: String, default: '' },
+  phone: { type: String, default: '' },
+  credit: { type: Object, default: { number: '', bank: '' } },
+  notif: { type: Array, default: [] },
   coins: { type: Number, default: 0 },
-  bought: { type: Array, default: []}
+  bought: [{ type: Schema.Types.ObjectId, ref: 'product' }]
 })
 
 module.exports = mongoose.model('account', Account)

@@ -11,7 +11,7 @@ const register = (req, res, next) => {
         const newAccount = new AccountModel(data)
         newAccount.save(err => {
           if (err === null) {
-            const { _id, username, password, role, firstName, lastName, email, coin, bought } = newAccount
+            const { _id, username, password, role, firstName, credit, lastName, email, coins, bought } = newAccount
             const token = jwt.sign({ _id, username, password, role }, 'mb1o4er')
             res.json({
               status: true,
@@ -23,10 +23,11 @@ const register = (req, res, next) => {
                 firstName,
                 lastName,
                 email,
-                coin,
+                coins,
+                credit,
                 bought,
-                token
-              }
+              },
+              token
             })
           } else {
             req.err = 'Đăng kí thất bại!'

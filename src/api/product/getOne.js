@@ -5,7 +5,7 @@ const getOne = (req, res, next) => {
 
   ProductModel.findOne({ slug })
       .populate('category')
-      .populate('seller', 'firstName lastName _id image role')
+      .populate('seller', 'coins firstName lastName _id image role')
       .then(resData => {
           if (resData) {
               res.json({
