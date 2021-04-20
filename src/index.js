@@ -16,7 +16,7 @@ app.use(errHandle)
 
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://gamingshopvn.herokuapp.com',
   }
 })
 
@@ -30,7 +30,7 @@ io.on('connection', socket => {
     socket.join(rooms)
   })
 
-  socket.on('buy-product', ({ product, user }, callback) => {
+  socket.on('buy-product', ({ product, user }) => {
     buyProduct(product, user)
       .then(response => {
         if (response) {
@@ -39,6 +39,10 @@ io.on('connection', socket => {
         }
       })
       .catch(err => console.log(err))
+  })
+
+  socket.on('create-product', () => {
+    io.to('admin').emit('create-notif')
   })
 })
 
