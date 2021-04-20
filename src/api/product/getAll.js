@@ -1,10 +1,11 @@
 const ProductModel = require('../../models/product')
 
 const getAll = (req, res, next) => {
-  const { sort, category } = req.query
+  const { sort, category, seller } = req.query
   const query = {}
   if (sort) query.sort = sort
   if (category) query.category = category
+  if (seller) query.seller = seller
 
   ProductModel.find(query)
     .populate('seller', 'firstName lastName _id image role')

@@ -30,11 +30,12 @@ io.on('connection', socket => {
     socket.join(rooms)
   })
 
-  socket.on('buy-product', ({ product, user }) => {
+  socket.on('buy-product', ({ product, user }, callback) => {
     buyProduct(product, user)
       .then(response => {
         if (response) {
-          io.to(product._id).emit('buy-product-notif', { content: `Nick ${product.name} đã được mua.` })
+          const newNotif =  { content: `Nick ${product.name} đã được mua.` }
+          io.to(product._id).emit('buy-product-notif', newNotif)
         }
       })
       .catch(err => console.log(err))
