@@ -5,6 +5,7 @@ const Schema = mongoose.Schema
 
 const Product = new Schema({
   name: { type: String, maxLength: 255 },
+  password: { type: String, required: true },
   image: { type: Object, default: { url: '/images/default_img.png' } },
   price: { type: Number, default: 0 },
   desc: { type: String, default: '' },

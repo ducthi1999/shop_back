@@ -8,6 +8,7 @@ const route = require('./routes')
 const middleware = require('./middlewares')
 const errHandle = require('./middlewares/errHandle')
 const buyProduct = require('./api/product/buyProduct')
+const request = require('./api/request/request')
 
 db.connect()
 middleware(app)
@@ -35,8 +36,9 @@ io.on('connection', socket => {
     buyProduct(product, user)
       .then(response => {
         if (response) {
-          const newNotif =  { content: `Nick ${product.name} đã được mua.` }
-          io.to(product._id).emit('buy-product-notif', newNotif)
+          const newNotif = { content: `Nick ${product.name} đã được mua.` }
+          io.to(product._id).emit('buy-product-notif', { newNotif })
+          socket.emit('change-coins', { newCoins: product.price })
         }
       })
       .catch(err => console.log(err))
@@ -44,6 +46,17 @@ io.on('connection', socket => {
 
   socket.on('create-product', () => {
     io.to('admin').emit('create-notif')
+  })
+
+  socket.on('request', ({ userId, coins, newCoins }) => {
+    request(userId, coins, newCoins)
+      .then(res => {
+        if (res) {
+          socket.emit('request-successfully')
+          io.to('admin').emit('money-request-notif', { newCoins })
+        }
+      })
+      .catch(err => console.log('request err'))
   })
 })
 

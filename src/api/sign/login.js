@@ -8,6 +8,7 @@ const login = (req, res, next) => {
     username: data.username,
     password: data.password
   })
+    .populate('bought.product')
     .then(resData => {
       if (resData) {
         const { _id, username, password, role } = resData

@@ -14,7 +14,7 @@ const buyProduct = (product, user) => {
         }, {
           coins: user.coins,
           $push: {
-            bought: { _id: product._id }
+            bought: { product: {_id: product._id }}
           }
         })
       }

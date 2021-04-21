@@ -2,10 +2,10 @@ const AccountModel = require('../../models/account')
 
 const commonAuth = (req, res, next) => {
   const { userId } = req
-
   AccountModel.findOne({
     _id: userId
   })
+  .populate('bought.product')
     .then(resData => {
       if (resData) {
         const userData = resData

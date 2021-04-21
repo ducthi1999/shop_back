@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
   if (token && token !== 'null') {
     let result = jwt.verify(token, 'mb1o4er')
     if (result) {
-
       req.userId = result._id
       req.userRole = result.role
       next()

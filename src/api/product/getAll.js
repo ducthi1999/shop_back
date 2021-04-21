@@ -3,7 +3,9 @@ const ProductModel = require('../../models/product')
 const getAll = (req, res, next) => {
   const { sort, category, seller, passed } = req.query
 
-  const query = {}
+  const query = {
+    sold: false
+  }
   if (sort) query.sort = sort
   if (category) query.category = category
   if (seller) query.seller = seller
@@ -25,6 +27,7 @@ const getAll = (req, res, next) => {
         next('last')
       }
     })
+    .catch(err => next('last'))
 }
 
 module.exports = getAll
