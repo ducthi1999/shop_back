@@ -3,21 +3,21 @@ const AccountModel = require('../../models/account')
 
 const login = (req, res, next) => {
   const data = req.body
-  
+
   AccountModel.findOne({
     username: data.username,
     password: data.password
   })
     .populate({
       path: 'bought.product',
-      populate({
+      populate: {
         path: 'category'
-      })
+      }
     })
     .then(resData => {
       if (resData) {
         const { _id, username, password, role } = resData
-        const token = jwt.sign({_id, username, password, role}, 'mb1o4er')
+        const token = jwt.sign({ _id, username, password, role }, 'mb1o4er')
         const userData = resData
 
         res.json({
