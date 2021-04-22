@@ -2,11 +2,15 @@ const AccountModel = require('../../models/account')
 
 const getOne = (req, res, next) => {
   const { userId } = req
-  const { _id } = req.params
+  const { _id, role } = req.params
+  const query = {}
 
-  AccountModel.findOne({
-    _id
-  })
+  if (_id && _id !== 'null') query._id = _id
+  if (role && role !== 'null') query.role = role
+
+  AccountModel.findOne(
+    query
+  )
     .then(resData => {
       if(resData) {
         let official = false

@@ -9,5 +9,5 @@ const router = express.Router()
 router.put('/:_id/avt', auth, editAvt)
 router.put('/:_id/:newCoins', auth, giveCoins)
 router.put('/:_id', auth, editInfo)
-router.get('/:_id', getOne)
+router.get('/:_id/:role', getOne)
 module.exports = router
