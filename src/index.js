@@ -15,12 +15,7 @@ middleware(app)
 route(app)
 app.use(errHandle)
 
-const io = require('socket.io')(http, {
-  cors: {
-    origin: 'https://gamingshopvn.herokuapp.com'
-    // origin: 'http://localhost:3000',
-  }
-})
+const io = require('socket.io')(http)
 
 app.get('/', (req, res) => {
   res.send('Vào nhầm link rồi, vào link API làm gì, link website đây này!!! <a href=\'https://gamingshopvn.herokuapp.com\'>click here</a>')
