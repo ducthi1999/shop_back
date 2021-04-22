@@ -9,6 +9,7 @@ const login = (req, res, next) => {
     password: data.password
   })
     .populate('bought.product')
+    .populate('bought.product.category')
     .then(resData => {
       if (resData) {
         const { _id, username, password, role } = resData
