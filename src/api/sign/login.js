@@ -11,7 +11,7 @@ const login = (req, res, next) => {
     .populate({
       path: 'bought.product',
       populate: {
-        path: 'bought.product.category'
+        path: 'category'
       }
     })
     .then(resData => {
