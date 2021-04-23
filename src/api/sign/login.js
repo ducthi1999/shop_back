@@ -8,13 +8,14 @@ const login = (req, res, next) => {
     username: data.username,
     password: data.password
   })
-    .populate({
-      path: 'bought.product',
-      populate: {
-        path: 'category',
-        model: 'categories'
+    .populate(
+      {
+        path: 'bought.product',
+        populate: {
+          path: 'category',
+        }
       }
-    })
+    )
     .then(resData => {
       if (resData) {
         const { _id, username, password, role } = resData

@@ -17,7 +17,8 @@ app.use(errHandle)
 
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'https://gamingshopvn.herokuapp.com'
+    origin: 'https://gamingshopvn.herokuapp.com',
+    // origin: 'http://localhost:3000',
   }
 })
 

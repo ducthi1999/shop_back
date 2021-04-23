@@ -5,7 +5,12 @@ const commonAuth = (req, res, next) => {
   AccountModel.findOne({
     _id: userId
   })
-  .populate('bought.product')
+    .populate({
+      path: 'bought.product',
+      populate: {
+        path: 'category'
+      }
+      })
     .then(resData => {
       if (resData) {
         const userData = resData
