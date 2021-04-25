@@ -18,13 +18,13 @@ app.use(errHandle)
 
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'https://hoangducthi-api.herokuapp.com',
+    origin: 'https://hoangducthi.herokuapp.com',
     // origin: 'http://localhost:3000',
   }
 })
 
 app.get('/', (req, res) => {
-  res.send('Vào nhầm link rồi, vào link API làm gì, link website đây này!!! <a href=\'https://gamingshopvn.herokuapp.com\'>click here</a>')
+  res.send('Vào nhầm link rồi, vào link API làm gì, link website đây này!!! <a href=\'https://hoangducthi.herokuapp.com\'>click here</a>')
 })
 
 io.on('connection', socket => {
