@@ -8,6 +8,7 @@ const route = require('./routes')
 const middleware = require('./middlewares')
 const errHandle = require('./middlewares/errHandle')
 const buyProduct = require('./api/product/buyProduct')
+const bidProduct = require('./api/product/bidProduct')
 const request = require('./api/request/request')
 
 db.connect()
@@ -17,8 +18,8 @@ app.use(errHandle)
 
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'https://gamingshopvn.herokuapp.com',
-    // origin: 'http://localhost:3000',
+    // origin: 'https://gamingshopvn.herokuapp.com',
+    origin: 'http://localhost:3000',
   }
 })
 
@@ -39,6 +40,31 @@ io.on('connection', socket => {
           const newNotif = { content: `Nick ${product.name} đã được mua.` }
           io.to(product._id).emit('buy-product-notif', { newNotif })
           socket.emit('change-coins', { newCoins: product.price })
+        }
+      })
+      .catch(err => console.log(err))
+  })
+
+
+  socket.on('end-bid-product', ({ product, user }) => {
+    buyProduct(product, user)
+      .then(response => {
+        if (response) {
+          const newNotif = { content: `Nick ${product.name} đã được mua.` }
+          io.to(product._id).emit('buy-product-notif', { newNotif })
+        }
+      })
+      .catch(err => console.log(err))
+  })
+
+
+  socket.on('bid-product', ({ product }) => {
+    bidProduct(product)
+      .then(response => {
+        if (response) {
+          const newNotif = { content: `Nick ${product.name} đã được trả giá lớn hơn.` }
+          io.to(product._id).emit('buy-product-notif', { newNotif })
+          socket.emit('no-change-coins', { newCoins: product.price })
         }
       })
       .catch(err => console.log(err))

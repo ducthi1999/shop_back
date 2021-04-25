@@ -5,7 +5,8 @@ const buyProduct = (product, user) => {
   return ProductModel.updateOne({
     _id: product._id
   }, {
-    sold: true
+    sold: true,
+    winner_id: product.winner_id,
   })
     .then(resData => {
       if (resData) {
