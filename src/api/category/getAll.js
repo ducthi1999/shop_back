@@ -1,5 +1,6 @@
 const CategoryModel = require('../../models/category')
 
+
 const getAll = (req, res, next) => {
   CategoryModel.find({})
     .then(resData => {
